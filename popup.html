@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>網站分享助手 - Website Sharing Assistant</title>
+    <link href="tabler.min.css" rel="stylesheet" />
+    <link href="tabler-flags.min.css" rel="stylesheet" />
+    <link href="tabler-payments.min.css" rel="stylesheet" />
+    <link href="tabler-vendors.min.css" rel="stylesheet" />
+    <link href="tabler-marketing.min.css" rel="stylesheet" />
+    <link href="tabler-socials.min.css" rel="stylesheet" />
+    <link href="sweetalert2.min.css" rel="stylesheet" />
+    <!--<link href="tabler-icons.min.css" rel="stylesheet" />-->
+    <style>
+        @import url('https://rsms.me/inter/inter.css');
+
+        :root {
+            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+        }
+
+        body {
+            font-feature-settings: "cv03", "cv04", "cv11";
+            min-width: 330px;
+            width: 100%;
+            /* 設定寬度 */
+            /* height: 400px; */
+            /* 設定高度 */
+            margin: 0;
+            /*padding: 10px; */
+            box-sizing: border-box;
+        }
+
+        .language-selector {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- Navbar -->
+        <header class="navbar navbar-expand-md d-print-none">
+            <div class="container-xl">
+                <span class="navbar-toggler"></span>
+                <!--
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
+                    aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                -->
+                <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                    <a href="https://sharelink.com">
+                        <img src="logo.svg" width="110" height="32" alt="ShareLinks" class="navbar-brand-image">
+                    </a>
+                </h1>
+                <div class="navbar-nav flex-row order-md-last">
+                    <div class="nav-item d-none d-md-flex me-3">
+                    </div>
+                    <div class="d-none d-md-flex">
+                    </div>
+                    <div class="nav-item dropdown">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!--
+        <header class="navbar-expand-md">
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <div class="navbar">
+                    <div class="container-xl">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="https://sharelink.com">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                                            <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        Home
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="my-2 my-md-0 flex-grow-1 flex-md-grow-0 order-first order-md-last">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        -->
+        <div class="page-wrapper">
+            <!-- Page header -->
+            <div class="page-header d-print-none">
+                <div class="container-xl">
+                    <div class="row g-2 align-items-center">
+                        <div class="col">
+                            <!-- Page pre-title -->
+                            <div class="page-pretitle">
+                                Overview
+                            </div>
+                            <h2 class="page-title" id="title">
+                                Share this Page
+                            </h2>
+                        </div>
+                        <!-- Page title actions -->
+                        <div class="col-auto ms-auto d-print-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page body -->
+            <div class="page-body">
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
+                        <div class="col-12" id="alert-container"></div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h3 class="card-title" id="web-title">Shared website title</h3>
+                                    <p class="card-subtitle" id="url-title">Web Title</p>
+                                    <div class="input-icon url-copy" data-clipboard-target="#url-text">
+                                        <input type="text" value="Web Url" id="url-text" class="form-control"
+                                            placeholder="Search…" readonly>
+                                        <span class="input-icon-addon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+                                                <path
+                                                    d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" />
+                                                <path
+                                                    d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="ribbon bg-blue">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-share">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                        <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                        <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                        <path d="M8.7 10.7l6.6 -3.4" />
+                                        <path d="M8.7 13.3l6.6 3.4" />
+                                    </svg>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title" id="share-title">Share via ?</h3>
+
+                                    <div class="row g-2 align-items-center">
+
+                                        <!--Facebook-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-facebook w-100 btn-icon share-text"
+                                                id="facebook-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="facebook" data-bs-original-title="Facebook">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <!--Line-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-line w-100 btn-icon btn-lime share-text"
+                                                id="line-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="line" data-bs-original-title="Line">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-line -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-line">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M21 10.663c0 -4.224 -4.041 -7.663 -9 -7.663s-9 3.439 -9 7.663c0 3.783 3.201 6.958 7.527 7.56c1.053 .239 .932 .644 .696 2.133c-.039 .238 -.184 .932 .777 .512c.96 -.42 5.18 -3.201 7.073 -5.48c1.304 -1.504 1.927 -3.029 1.927 -4.715v-.01z" />
+                                                </svg>
+
+                                            </a>
+                                        </div>
+
+                                        <!--Wechat-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-wechat w-100 btn-icon btn-green share-text"
+                                                id="wechat-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="wechat" data-bs-original-title="Wechat">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-line -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-wechat">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M16.5 10c3.038 0 5.5 2.015 5.5 4.5c0 1.397 -.778 2.645 -2 3.47l0 2.03l-1.964 -1.178a6.649 6.649 0 0 1 -1.536 .178c-3.038 0 -5.5 -2.015 -5.5 -4.5s2.462 -4.5 5.5 -4.5z" />
+                                                    <path
+                                                        d="M11.197 15.698c-.69 .196 -1.43 .302 -2.197 .302a8.008 8.008 0 0 1 -2.612 -.432l-2.388 1.432v-2.801c-1.237 -1.082 -2 -2.564 -2 -4.199c0 -3.314 3.134 -6 7 -6c3.782 0 6.863 2.57 7 5.785l0 .233" />
+                                                    <path d="M10 8h.01" />
+                                                    <path d="M7 8h.01" />
+                                                    <path d="M15 14h.01" />
+                                                    <path d="M18 14h.01" />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <!--Skype-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-skype w-100 btn-icon btn-azure share-text"
+                                                id="skype-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="skype" data-bs-original-title="Skype">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-line -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-skype">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M12 3a9 9 0 0 1 8.603 11.65a4.5 4.5 0 0 1 -5.953 5.953a9 9 0 0 1 -11.253 -11.253a4.5 4.5 0 0 1 5.953 -5.954a8.987 8.987 0 0 1 2.65 -.396z" />
+                                                    <path
+                                                        d="M8 14.5c.5 2 2.358 2.5 4 2.5c2.905 0 4 -1.187 4 -2.5c0 -1.503 -1.927 -2.5 -4 -2.5s-4 -1 -4 -2.5c0 -1.313 1.095 -2.5 4 -2.5c1.642 0 3.5 .5 4 2.5" />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <!--Telegram-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-telegram w-100 btn-icon btn-cyan share-text"
+                                                id="telegram-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="telegram" data-bs-original-title="Telegram">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-line -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-telegram">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <!--Whatsapp-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-whatsapp w-100 btn-icon btn-lime share-text"
+                                                id="whatsapp-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="whatsapp" data-bs-original-title="Whatsapp">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-line -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-whatsapp">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                                                    <path
+                                                        d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <!--X-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-6 btn-x w-100 btn-icon share-text" id="x-share"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" aria-label="x"
+                                                data-bs-original-title="X">
+                                                <!-- Download SVG icon from http://tabler.io/icons/icon/brand-x -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-2">
+                                                    <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                                                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <!--Linkedin-->
+                                        <div class="col-auto py-3">
+                                            <a href="#" class="btn btn-linkedin w-100 btn-icon share-text"
+                                                id="linkedin-share" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                aria-label="linkedin" data-bs-original-title="Linkedin">
+                                                <!-- Download SVG icon from http://tabler-icons.io/i/brand-line -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M8 11v5" />
+                                                    <path d="M8 8v.01" />
+                                                    <path d="M12 16v-5" />
+                                                    <path d="M16 16v-3a2 2 0 1 0 -4 0" />
+                                                    <path
+                                                        d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-stamp">
+                                    <div class="card-stamp-icon bg-yellow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-share-3">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path
+                                                d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title" id="other-share-title">Ohter Share via Navigator</h3>
+
+                                    <div class="row g-2 align-items-center">
+                                        <div class="col-6 col-sm-4 col-md-2 col-xl py-3">
+                                            <a href="#" class="btn btn-success btn-square w-100" id="ohter-share">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-share-2">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M8 9h-1a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-1" />
+                                                    <path d="M12 14v-11" />
+                                                    <path d="M9 6l3 -3l3 3" />
+                                                </svg>
+                                                <span id="other-share-btn-txt">Share</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer footer-transparent d-print-none">
+                <div class="container-xl">
+                    <div class="row text-center align-items-center flex-row-reverse">
+                        <div class="col-lg-auto ms-lg-auto">
+                            <div class="language-selector">
+                                <select id="language-select" class="form-select">
+                                    <option value="en">English</option>
+                                    <option value="zh-TW">繁體中文</option>
+                                    <option value="zh-CN">简体中文</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                            <ul class="list-inline list-inline-dots mb-0">
+                                <li class="list-inline-item">
+                                    &copy; 2025
+                                    <a href="#" class="link-secondary">Sharing Assistant</a>.
+                                    All rights reserved.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Tabler Core -->
+    <script src="tabler.min.js" defer></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="clipboard.min.js"></script>
+
+    <script src="popup.js"></script>
+
+
+</body>
+
+</html>
