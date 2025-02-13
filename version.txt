@@ -1,4 +1,7 @@
 ## 第 1.1 版
+新增:
+1. Facebook Messenger 分享功能
+
 修正:
 1. ActiveTab非正常URL時，顯示空白問題。
 
