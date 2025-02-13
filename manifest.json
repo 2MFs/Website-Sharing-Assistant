@@ -7,8 +7,7 @@
     "activeTab",
     "contextMenus",
     "tabs"
-  ],    
-  "host_permissions": ["https://www.facebook.com/*", "https://graph.facebook.com/*"],
+  ],  
   "background": {
     "service_worker": "background.js"
   },
