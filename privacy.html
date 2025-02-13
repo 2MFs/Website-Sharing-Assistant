@@ -3,49 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>隱私權政策</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
+    <title>隱私權政策 | Privacy Policy</title>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet">
+    <script>
+        function setLanguage(lang) {            
+            
+            const isChinese = lang.startsWith('zh');
+            document.querySelectorAll('.zh').forEach(el => el.style.display = isChinese ? 'block' : 'none');
+            document.querySelectorAll('.en').forEach(el => el.style.display = isChinese ? 'none' : 'block');
         }
-        h1, h2 {
-            color: #333;
-        }
-    </style>
+
+        function detectLanguage() {
+            let lang = navigator.language || navigator.userLanguage;
+            console.log(lang);
+            if (lang) {
+                switch (lang) {
+                    case 'zh-CN': 
+                    case 'zh-SG': 
+                    case 'zh-MY': 
+                    case 'zh-TW': 
+                    case 'zh-HK':  
+                    case 'zh-MO':
+                        lang = 'zh';
+                        break;                    
+                    default:
+                        lang = 'en';
+                        break;
+                }
+                
+                document.getElementById('language-select').value = lang;
+                setLanguage(lang);
+            } else {
+                setLanguage('en');
+            }        
+        } 
+
+        document.addEventListener("DOMContentLoaded", detectLanguage);
+    </script>
 </head>
-<body>
-    <h1>隱私權政策</h1>
-    <p><strong>網站分享助手 - Website Sharing Assistant</strong>（以下稱「本擴充功能」）非常重視您的隱私。本隱私權政策旨在說明我們如何收集、使用和保護您的信息。</p>
+<body class="container py-4">
+    <div class="card p-4">
+        <h1 class="text-primary zh">隱私權政策</h1>
+        <h1 class="text-primary en">Privacy Policy</h1>
+        <p class="zh"><strong>網站分享助手</strong>（以下稱「本擴充功能」）非常重視您的隱私。本隱私權政策旨在說明我們如何收集、使用和保護您的信息。</p>
+        <p class="en"><strong>Website Sharing Assistant</strong> (hereinafter referred to as "this extension") highly values your privacy. This Privacy Policy aims to explain how we collect, use, and protect your information.</p>
+        
+        <h2 class="zh">1. 信息收集</h2>
+        <h2 class="en">1. Information Collection</h2>
+        <p class="zh">我們可能會收集以下類型的信息：</p>
+        <p class="en">We may collect the following types of information:</p>
+        <ul>
+            <li class="zh"><strong>網站數據</strong>：我們可能會獲取有關您目前使用本擴充功能時的網站標題與網址，用於作為共享時顯示的訊息。</li>
+            <li class="en"><strong>Website Data</strong>: We may obtain the title and URL of the website you are currently using with this extension to display shared information.</li>
+        </ul>
 
-    <h2>1. 信息收集</h2>
-    <p>我們可能會收集以下類型的信息：</p>
-    <ul>
-        <li><strong>網站數據</strong>：我們可能會獲取有關您目前使用本擴充功能時的網站標題與網址，用於作為共享時顯示的訊息。</li>
-    </ul>
+        <h2 class="zh">2. 信息使用</h2>
+        <h2 class="en">2. Information Usage</h2>
+        <p class="zh">我們獲取的信息可能用於以下目的：</p>
+        <p class="en">The information we obtain may be used for the following purposes:</p>
+        <ul>
+            <li class="zh">在本擴充功能顯示。</li>
+            <li class="en">Displayed within this extension.</li>
+            <li class="zh">在本擴充功能提供用戶複製。</li>
+            <li class="en">Provided for user copying within this extension.</li>
+        </ul>
 
-    <h2>2. 信息使用</h2>
-    <p>我們獲取的信息可能用於以下目的：</p>
-    <ul>
-        <li>在本擴充功能顯示。</li>
-        <li>在本擴充功能提供用戶複製。</li>
-    </ul>
+        <h2 class="zh">3. 信息分享</h2>
+        <h2 class="en">3. Information Sharing</h2>
+        <p class="zh">我們不會將您的個人信息出售或出租給第三方。只有在以下情況下，我們才會分享信息：</p>
+        <p class="en">We do not sell or rent your personal information to third parties. We only share information in the following cases:</p>
+        <ul>
+            <li class="zh">符合法律要求。</li>
+            <li class="en">Compliance with legal requirements.</li>
+            <li class="zh">保護我們的權利和安全。</li>
+            <li class="en">Protecting our rights and security.</li>
+        </ul>
 
-    <h2>3. 信息分享</h2>
-    <p>我們不會將您的個人信息出售或出租給第三方。只有在以下情況下，我們才會分享信息：</p>
-    <ul>
-        <li>符合法律要求。</li>
-        <li>保護我們的權利和安全。</li>
-    </ul>
+        <h2 class="zh">4. 信息安全</h2>
+        <h2 class="en">4. Information Security</h2>
+        <p class="zh">我們採取合理的措施來保護您的信息免受未經授權的存取、使用或披露。</p>
+        <p class="en">We take reasonable measures to protect your information from unauthorized access, use, or disclosure.</p>
 
-    <h2>4. 信息安全</h2>
-    <p>我們採取合理的措施來保護您的信息免受未經授權的存取、使用或披露。</p>
+        <h2 class="zh">5. 隱私權政策的變更</h2>
+        <h2 class="en">5. Changes to the Privacy Policy</h2>
+        <p class="zh">我們可能會不時更新本隱私權政策。任何更改將在此頁面上發布。</p>
+        <p class="en">We may update this Privacy Policy from time to time. Any changes will be posted on this page.</p>
 
-    <h2>5. 隱私權政策的變更</h2>
-    <p>我們可能會不時更新本隱私權政策。任何更改將在此頁面上發布。</p>
-
-    <h2>6. 聯繫我們</h2>
-    <p>如果您對本隱私權政策有任何疑問或建議，請聯繫我們： trust01314@gmail.com</p>
+        <h2 class="zh">6. 聯繫我們</h2>
+        <h2 class="en">6. Contact Us</h2>
+        <p class="zh">如果您對本隱私權政策有任何疑問或建議，請聯繫我們： <a href="mailto:2mfs.dev@gmail.com">2mfs.dev@gmail.com</a></p>
+        <p class="en">If you have any questions or suggestions regarding this Privacy Policy, please contact us at: <a href="mailto:2mfs.dev@gmail.com">2mfs.dev@gmail.com</a></p>
+    </div>
+    <footer class="text-center mt-4">
+        <label for="language-select">Language:</label>
+        <select id="language-select" class="form-select w-auto d-inline-block" onchange="setLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+        </select>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
 </body>
 </html>
