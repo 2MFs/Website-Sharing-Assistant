@@ -13,6 +13,10 @@ const translations = {
         navigatorShareSuccess: "Thank you for sharing",
         navigatorShareCancel: "You have canceled sharing this message",
         unsupported: "Unsupported browser",
+        shareQrCodeTitle: "Share QR Code",
+        shareQrCodeClose: "Close",
+        shareQrCodeQuote: "Use a camera or other QR code recognition software to scan and open.",
+        shareQrCodeQuoteWechat: "After opening with WeChat's scan feature, share from the top right corner.",
         facebook: "Facebook",
         facebookMessenger: "Facebook Messenger",
         line: "Line",
@@ -37,6 +41,10 @@ const translations = {
         navigatorShareSuccess: "感謝你的的分享",
         navigatorShareCancel: "您已取消分享此訊息",
         unsupported: "不支援的瀏覽器",
+        shareQrCodeTitle: "分享 QR Code",
+        shareQrCodeClose: "關閉",
+        shareQrCodeQuote: "使用相機或其他 QR Code 軟體辨識和開啟",
+        shareQrCodeQuoteWechat: "微信使用掃一掃開啟後，從右上角分享",
         facebook: "臉書",
         facebookMessenger: "臉書 Messenger",
         line: "LINE",
@@ -61,6 +69,10 @@ const translations = {
         navigatorShareSuccess: "感谢你的分享",
         navigatorShareCancel: "您已取消分享此消息",
         unsupported: "不支持的浏览器",
+        shareQrCodeTitle: "分享二维码",
+        shareQrCodeClose: "关闭",
+        shareQrCodeQuote: "使用相机或其他二维码软件识别和打开",
+        shareQrCodeQuoteWechat: "微信使用扫一扫开启后，从右上角分享",
         facebook: "脸书",
         facebookMessenger: "脸书 Messenger",
         line: "LINE",
@@ -85,9 +97,15 @@ function setLanguage(lang) {
     document.getElementById('web-title').textContent = translation.shareWebTitle;
     document.getElementById('share-title').textContent = translation.shareTitle;
 
+    //共享導航器
     document.getElementById('other-share-title').textContent = translation.otherShareTitle;
-
     document.getElementById('other-share-btn-txt').textContent = translation.share;
+
+    //分享Modal
+    document.getElementById('share-qr-code-title').textContent = translation.shareQrCodeTitle;
+    document.getElementById('share-qr-code-close').textContent = translation.shareQrCodeClose;
+    document.getElementById('share-qr-code-quote').textContent = translation.shareQrCodeQuote;
+    document.getElementById('share-qr-code-quote-wechat').textContent = translation.shareQrCodeQuoteWechat;
 
     //alert
     if (document.getElementById('alert-container-title')) {
@@ -245,7 +263,7 @@ function getParamsInfo(tabs) {
 
 //分享
 function shareViaApp(app) {
-    getCurrentWebUrl(function (error, url) {
+        getCurrentWebUrl(function (error, url) {
         if (!url || !url.startsWith('http') || !isValidUrl(url)) {
             const lang = document.getElementById('language-select').value;
             const translation = translations[lang] || translations['en'];
@@ -257,6 +275,13 @@ function shareViaApp(app) {
         }
 
         let shareUrl = '';
+        
+        //隱藏微信提示
+        const quoteWechat = document.getElementById('share-qr-code-quote-wechat');
+        const quoteWechatParent = quoteWechat.parentElement;
+        
+        quoteWechatParent.classList.remove('d-block');
+        quoteWechatParent.classList.add('d-none');
 
         switch (app) {
             case 'facebook':
@@ -270,18 +295,15 @@ function shareViaApp(app) {
 
                 shareUrl = `https://www.facebook.com/dialog/send?app_id=${appId}&link=${link}&redirect_uri=${redirectUri}`;
 
-                /*
-                Swal.fire({
-                    title: "Under development",
-                    icon: "info",
-                });
-                */
-
                 break;
             case 'line':
                 shareUrl = `https://line.me/R/msg/text/?${encodeURIComponent(url)}`;
                 break;
             case 'wechat':
+
+                quoteWechatParent.classList.remove('d-none');
+                quoteWechatParent.classList.add('d-block');
+
                 showQRCode(url);
                 return;
             case 'skype':
@@ -299,9 +321,20 @@ function shareViaApp(app) {
             case 'linkedin':
                 shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
                 break;
+            case 'qrcode':     
+                showQRCode(url);
+                return;    
             default:
                 return;
         }
+
+        /*
+        Swal.fire({
+            title: "Under development",
+            text: app,
+            icon: 'info',
+        });
+        */
 
         window.open(shareUrl, '_blank', "width=1280,height=960");
     });
@@ -370,6 +403,9 @@ function shareNotSupportNavigator() {
 
 //顯示QRcode
 function showQRCode(url) {
+    const qrCodeContainer = document.getElementById('share-qr-code-text');
+    const qrCodeModal = new bootstrap.Modal(document.getElementById('share-qr-code-modal'), 'focus');
+    /*    
     const qrCodeContainer = document.createElement('div');
     qrCodeContainer.style.position = 'fixed';
     qrCodeContainer.style.top = '0';
@@ -381,17 +417,32 @@ function showQRCode(url) {
     qrCodeContainer.style.alignItems = 'center';
     qrCodeContainer.style.justifyContent = 'center';
     qrCodeContainer.style.zIndex = '1000';
+    */
+
+    const qrCodeSpinner = document.createElement('div');
+    qrCodeSpinner.className = 'spinner-border spinner-border-sm text-secondary';
+    qrCodeSpinner.setAttribute('role', 'status');
+
+  
+
+    qrCodeContainer.textContent = '';
+    qrCodeContainer.appendChild(qrCodeSpinner);
 
     const qrCodeImage = document.createElement('img');
     qrCodeImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(url)}`;
     qrCodeImage.style.border = '5px solid white';
 
-    qrCodeContainer.appendChild(qrCodeImage);
-    document.body.appendChild(qrCodeContainer);
+    qrCodeImage.onload = function () {
+        qrCodeContainer.textContent = '';
+        qrCodeContainer.appendChild(qrCodeImage);
+    };
+    //document.body.appendChild(qrCodeContainer);
 
-    qrCodeContainer.addEventListener('click', () => {
+    /*qrCodeContainer.addEventListener('click', () => {
         document.body.removeChild(qrCodeContainer);
-    });
+    });*/
+
+    qrCodeModal.show();
 }
 
 function showBaseSwalAlert(title, message, icon) {
@@ -517,6 +568,10 @@ document.getElementById('x-share').addEventListener('click', () => {
 
 document.getElementById('linkedin-share').addEventListener('click', () => {
     shareViaApp('linkedin');
+});
+
+document.getElementById('share-qr-code-qoen-btn').addEventListener('click', () => {
+    shareViaApp('qrcode');
 });
 
 document.getElementById('ohter-share').addEventListener('click', async () => {

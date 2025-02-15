@@ -1,3 +1,10 @@
+## 第 1.2 版
+新增:
+1. 分享QR Code
+
+變更:
+1. 微信顯示方式合併分享QRcode
+
 ## 第 1.1 版
 新增:
 1. Facebook Messenger 分享功能

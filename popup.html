@@ -128,21 +128,51 @@
                                 <div class="card-body">
                                     <h3 class="card-title" id="web-title">Shared website title</h3>
                                     <p class="card-subtitle" id="url-title">Web Title</p>
-                                    <div class="input-icon url-copy" data-clipboard-target="#url-text">
-                                        <input type="text" value="Web Url" id="url-text" class="form-control"
-                                            placeholder="Search…" readonly>
-                                        <span class="input-icon-addon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M15 3v4a1 1 0 0 0 1 1h4" />
-                                                <path
-                                                    d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" />
-                                                <path
-                                                    d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
-                                            </svg>
-                                        </span>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <div class="input-icon url-copy" data-clipboard-target="#url-text">
+                                                <input type="text" value="Web Url" id="url-text" class="form-control"
+                                                    placeholder="Search…" readonly>
+                                                <span class="input-icon-addon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                        stroke="currentColor" fill="none" stroke-linecap="round"
+                                                        stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M15 3v4a1 1 0 0 0 1 1h4" />
+                                                        <path
+                                                            d="M18 17h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h4l5 5v7a2 2 0 0 1 -2 2z" />
+                                                        <path
+                                                            d="M16 17v2a2 2 0 0 1 -2 2h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a id="share-qr-code-qoen-btn" href="#" class="btn btn-icon" aria-label="Button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-qrcode">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path
+                                                        d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                                                    <path d="M7 17l0 .01" />
+                                                    <path
+                                                        d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                                                    <path d="M7 7l0 .01" />
+                                                    <path
+                                                        d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                                                    <path d="M17 7l0 .01" />
+                                                    <path d="M14 14l3 0" />
+                                                    <path d="M20 14l0 .01" />
+                                                    <path d="M14 14l0 3" />
+                                                    <path d="M14 20l3 0" />
+                                                    <path d="M17 17l3 0" />
+                                                    <path d="M20 17l0 3" />
+                                                </svg>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -402,36 +432,30 @@
             </footer>
         </div>
     </div>
-    <div class="modal modal-blur fade" id="modal-facebook-share" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="share-qr-code-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New report</h5>
+                    <h5 class="modal-title" id="share-qr-code-title">Share QR Code</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <a href="#"  class="btn btn-facebook w-100">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg>
-                        Facebook Messenger
-                      </a>
-                      
+                <div class="modal-body">                    
+                    <div class="row justify-content-center align-content-center">
+                        <div class="col-auto align-content-center" id="share-qr-code-text">                            
+                            
+                        </div>
+                        <div class="mt-2 col-12 markdown text-center">
+                            <div id="share-qr-code-quote" class="form-check-description">Use a camera or other QR code recognition software to scan and open.</div>
+                        </div>
+                        <div class="mt-2 col-12 markdown text-center d-none">
+                            <div id="share-qr-code-quote-wechat" class="form-check-description text-success">After opening with WeChat's scan feature, share from the top right corner.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-                        Cancel
-                    </a>
-                    <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M12 5l0 14" />
-                            <path d="M5 12l14 0" />
-                        </svg>
-                        Create new report
-                    </a>
+                    <a id="share-qr-code-close" href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                        Close
+                    </a>                    
                 </div>
             </div>
         </div>
