@@ -14,9 +14,11 @@ const translations = {
         navigatorShareCancel: "You have canceled sharing this message",
         unsupported: "Unsupported browser",
         shareQrCodeTitle: "Share QR Code",
-        shareQrCodeClose: "Close",
         shareQrCodeQuote: "Use a camera or other QR code recognition software to scan and open.",
         shareQrCodeQuoteWechat: "After opening with WeChat's scan feature, share from the top right corner.",
+        appModalTitleSkype: "Share by SKYPE",
+        datagridTitleCommon: "Common",
+        datagridTitleOther: "Other",
         facebook: "Facebook",
         facebookMessenger: "Facebook Messenger",
         line: "Line",
@@ -26,6 +28,10 @@ const translations = {
         whatsapp: "WhatsApp",
         x: "X",
         linkedin: "LinkedIn",
+        shareModalClose: "Close",
+        modalLabelOption: "Option",
+        modalLabelTitle: "Website URL",
+        shareButtonText: "Share use SKYPE",
     },
     "zh-TW": {
         title: "分享此頁面",
@@ -42,9 +48,11 @@ const translations = {
         navigatorShareCancel: "您已取消分享此訊息",
         unsupported: "不支援的瀏覽器",
         shareQrCodeTitle: "分享 QR Code",
-        shareQrCodeClose: "關閉",
         shareQrCodeQuote: "使用相機或其他 QR Code 軟體辨識和開啟",
         shareQrCodeQuoteWechat: "微信使用掃一掃開啟後，從右上角分享",
+        appModalTitleSkype: "使用 SKYPE 分享",
+        datagridTitleCommon: "一般",
+        datagridTitleOther: "其他",
         facebook: "臉書",
         facebookMessenger: "臉書 Messenger",
         line: "LINE",
@@ -54,6 +62,10 @@ const translations = {
         whatsapp: "WhatsApp",
         x: "X",
         linkedin: "LinkedIn",
+        shareModalClose: "關閉",
+        modalLabelOption: "選項",
+        modalLabelTitle: "網址",
+        shareButtonText: "開啟 SKYPE 分享",
     },
     "zh-CN": {
         title: "分享此页面",
@@ -70,9 +82,11 @@ const translations = {
         navigatorShareCancel: "您已取消分享此消息",
         unsupported: "不支持的浏览器",
         shareQrCodeTitle: "分享二维码",
-        shareQrCodeClose: "关闭",
         shareQrCodeQuote: "使用相机或其他二维码软件识别和打开",
         shareQrCodeQuoteWechat: "微信使用扫一扫开启后，从右上角分享",
+        appModalTitleSkype: "使用 SKYPE 分享",
+        datagridTitleCommon: "常规",
+        datagridTitleOther: "其他",
         facebook: "脸书",
         facebookMessenger: "脸书 Messenger",
         line: "LINE",
@@ -82,12 +96,17 @@ const translations = {
         whatsapp: "WhatsApp",
         x: "X",
         linkedin: "LinkedIn",
+        shareModalClose: "关闭",
+        modalLabelOption: "选项",
+        modalLabelTitle: "网址",
+        shareButtonText: "打开 SKYPE 分享",
     }
 };
 
 //設定語言
 function setLanguage(lang) {
-    const elements = document.querySelectorAll('.share-text');
+    const shareTextElements = document.querySelectorAll('.share-text');
+    const ModalCloseElements = document.querySelectorAll('.share-modal-close')
     const translation = translations[lang] || translations['en'];
 
     //標體
@@ -97,15 +116,24 @@ function setLanguage(lang) {
     document.getElementById('web-title').textContent = translation.shareWebTitle;
     document.getElementById('share-title').textContent = translation.shareTitle;
 
+    //分享資料
+    document.getElementById('datagrid-title-common').textContent = translation.datagridTitleCommon;
+    document.getElementById('datagrid-title-other').textContent = translation.datagridTitleOther;
+
     //共享導航器
     document.getElementById('other-share-title').textContent = translation.otherShareTitle;
     document.getElementById('other-share-btn-txt').textContent = translation.share;
 
     //分享Modal
     document.getElementById('share-qr-code-title').textContent = translation.shareQrCodeTitle;
-    document.getElementById('share-qr-code-close').textContent = translation.shareQrCodeClose;
     document.getElementById('share-qr-code-quote').textContent = translation.shareQrCodeQuote;
     document.getElementById('share-qr-code-quote-wechat').textContent = translation.shareQrCodeQuoteWechat;
+
+    //
+    document.getElementById('modal-label-title').textContent = translation.modalLabelTitle;
+    document.getElementById('modal-label-option').textContent = translation.modalLabelOption;
+
+    document.getElementById('share-text-btn').textContent = translation.shareButtonText;
 
     //alert
     if (document.getElementById('alert-container-title')) {
@@ -119,12 +147,17 @@ function setLanguage(lang) {
     }
 
     //分享按鈕
-    elements.forEach((el, index) => {
+    shareTextElements.forEach((el, index) => {
         //const keys = Object.keys(translation);
         //el.textContent = translation[keys[index + 1]];
 
         const key = el.getAttribute('aria-label');
         el.setAttribute('data-bs-original-title', translation[key]);
+    });
+
+    //模擬框關閉按鈕
+    ModalCloseElements.forEach((el, index) => {
+        el.textContent = translation.shareModalClose;
     });
 }
 
@@ -147,9 +180,9 @@ function isValidUrl(url) {
 
 
 //設定當前URL
-function setUrlText() {
+function setUrlText(textId) {
     getCurrentWebUrl(function (error, url) {
-        document.getElementById('url-text').value = url;
+        document.getElementById(textId).value = url;
     });
 }
 
@@ -263,7 +296,7 @@ function getParamsInfo(tabs) {
 
 //分享
 function shareViaApp(app) {
-        getCurrentWebUrl(function (error, url) {
+    getCurrentWebUrl(function (error, url) {
         if (!url || !url.startsWith('http') || !isValidUrl(url)) {
             const lang = document.getElementById('language-select').value;
             const translation = translations[lang] || translations['en'];
@@ -275,11 +308,11 @@ function shareViaApp(app) {
         }
 
         let shareUrl = '';
-        
+
         //隱藏微信提示
         const quoteWechat = document.getElementById('share-qr-code-quote-wechat');
         const quoteWechatParent = quoteWechat.parentElement;
-        
+
         quoteWechatParent.classList.remove('d-block');
         quoteWechatParent.classList.add('d-none');
 
@@ -287,7 +320,7 @@ function shareViaApp(app) {
             case 'facebook':
                 shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
                 break;
-            case 'facebook-messenger':                
+            case 'facebook-messenger':
 
                 let appId = "1333637364352567"; // Facebook App ID
                 let link = encodeURIComponent(url); // 要分享的網址
@@ -307,8 +340,11 @@ function shareViaApp(app) {
                 showQRCode(url);
                 return;
             case 'skype':
-                shareUrl = `https://web.skype.com/share?url=${encodeURIComponent(url)}`;
-                break;
+                //shareUrl = `https://web.skype.com/share?url=${encodeURIComponent(url)}`;
+
+                showApplication(app);
+
+                return;
             case 'telegram':
                 shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
                 break;
@@ -321,9 +357,9 @@ function shareViaApp(app) {
             case 'linkedin':
                 shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
                 break;
-            case 'qrcode':     
+            case 'qrcode':
                 showQRCode(url);
-                return;    
+                return;
             default:
                 return;
         }
@@ -423,7 +459,7 @@ function showQRCode(url) {
     qrCodeSpinner.className = 'spinner-border spinner-border-sm text-secondary';
     qrCodeSpinner.setAttribute('role', 'status');
 
-  
+
 
     qrCodeContainer.textContent = '';
     qrCodeContainer.appendChild(qrCodeSpinner);
@@ -445,6 +481,73 @@ function showQRCode(url) {
     qrCodeModal.show();
 }
 
+//顯示
+function showApplication(app) {
+
+    const appModal = new bootstrap.Modal(document.getElementById('share-application-modal'), 'focus');
+    const appModalTitle = document.getElementById('share-application-title');
+
+    const lang = document.getElementById('language-select').value;
+    const translation = translations[lang] || translations['en'];
+
+    setUrlText('modal-url-text');
+
+    switch (app) {
+        case 'skype':
+            appModalTitle.textContent = translation.appModalTitleSkype;
+            break;
+        default:
+            return;
+    }
+
+    appModal.show();
+}
+
+function openApplication(app) {
+
+    switch (app) {
+        case 'skype':
+
+            checkAndOpenApp("skype://", "https://www.skype.com/");
+
+            break;
+        default:
+            return;
+    }
+
+
+}
+
+function openApp(url, fallbackUrl) {
+    let iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = url;
+    document.body.appendChild(iframe);
+
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+        // 如果應用程式不存在，則跳轉到 fallbackUrl
+        window.location.href = fallbackUrl;
+    }, 2000); // 2秒內未開啟，則視為未安裝
+}
+
+// 嘗試開啟 Skype 或 Telegram
+function checkAndOpenApp(app, appURL) {
+    if (/Android|iPhone|iPad|iPod/.test(navigator.userAgent)) {
+        openApp(app, appURL);        
+    } else {
+        // 桌面端可直接使用 window.open
+        let skypeWindow = window.open(app, "_blank");
+
+        setTimeout(() => {
+            if (!skypeWindow || skypeWindow.closed) {
+                window.location.href = appURL;
+            }
+        }, 2000);
+    }
+}
+
+//提示
 function showBaseSwalAlert(title, message, icon) {
     Swal.fire({
         title: title,
@@ -532,7 +635,7 @@ document.getElementById('language-select').addEventListener('change', (event) =>
 document.addEventListener('DOMContentLoaded', () => {
     detectLanguage();
     setUrlTitle();
-    setUrlText();
+    setUrlText('url-text');
 });
 
 document.getElementById('facebook-share').addEventListener('click', () => {
@@ -574,6 +677,10 @@ document.getElementById('share-qr-code-qoen-btn').addEventListener('click', () =
     shareViaApp('qrcode');
 });
 
+document.getElementById('share-skype-btn').addEventListener('click', () => {
+    openApplication('skype');
+});
+
 document.getElementById('ohter-share').addEventListener('click', async () => {
     // 判斷瀏覽器是否支援 Web Share API
     if (navigator.share) {
@@ -582,3 +689,4 @@ document.getElementById('ohter-share').addEventListener('click', async () => {
         shareNotSupportNavigator();
     }
 });
+
