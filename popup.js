@@ -28,6 +28,7 @@ const translations = {
         whatsapp: "WhatsApp",
         x: "X",
         linkedin: "LinkedIn",
+        weibo: "Weibo",
         shareModalClose: "Close",
         modalLabelOption: "Option",
         modalLabelTitle: "Website URL",
@@ -62,6 +63,7 @@ const translations = {
         whatsapp: "WhatsApp",
         x: "X",
         linkedin: "LinkedIn",
+        weibo: "微博",
         shareModalClose: "關閉",
         modalLabelOption: "選項",
         modalLabelTitle: "網址",
@@ -96,6 +98,7 @@ const translations = {
         whatsapp: "WhatsApp",
         x: "X",
         linkedin: "LinkedIn",
+        weibo: "微博",
         shareModalClose: "关闭",
         modalLabelOption: "选项",
         modalLabelTitle: "网址",
@@ -357,6 +360,9 @@ function shareViaApp(app) {
             case 'linkedin':
                 shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
                 break;
+            case 'weibo':
+                shareUrl = `http://service.weibo.com/share/share.php?url=${encodeURIComponent(url)}`;
+                break;    
             case 'qrcode':
                 showQRCode(url);
                 return;
@@ -671,6 +677,10 @@ document.getElementById('x-share').addEventListener('click', () => {
 
 document.getElementById('linkedin-share').addEventListener('click', () => {
     shareViaApp('linkedin');
+});
+
+document.getElementById('weibo-share').addEventListener('click', () => {
+    shareViaApp('weibo');
 });
 
 document.getElementById('share-qr-code-qoen-btn').addEventListener('click', () => {
