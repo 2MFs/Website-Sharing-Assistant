@@ -24,6 +24,7 @@ const translations = {
         line: "Line",
         wechat: "WeChat",
         skype: "Skype",
+        teams: "Teams",
         telegram: "Telegram",
         whatsapp: "WhatsApp",
         x: "X",
@@ -59,6 +60,7 @@ const translations = {
         line: "LINE",
         wechat: "微信",
         skype: "Skype",
+        teams: "Teams",
         telegram: "Telegram",
         whatsapp: "WhatsApp",
         x: "X",
@@ -94,6 +96,7 @@ const translations = {
         line: "LINE",
         wechat: "微信",
         skype: "Skype",
+        teams: "Teams",
         telegram: "Telegram",
         whatsapp: "WhatsApp",
         x: "X",
@@ -348,6 +351,9 @@ function shareViaApp(app) {
                 showApplication(app);
 
                 return;
+            case 'teams':
+                    shareUrl = `https://teams.microsoft.com/share?href=${encodeURIComponent(url)}&preview=true`;
+                    break;
             case 'telegram':
                 shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}`;
                 break;
@@ -661,6 +667,10 @@ document.getElementById('wechat-share').addEventListener('click', () => {
 
 document.getElementById('skype-share').addEventListener('click', () => {
     shareViaApp('skype');
+});
+
+document.getElementById('teams-share').addEventListener('click', () => {
+    shareViaApp('teams');
 });
 
 document.getElementById('telegram-share').addEventListener('click', () => {
