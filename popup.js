@@ -345,7 +345,7 @@ function shareViaApp(app) {
 
                 showQRCode(url);
                 return;
-            case 'skype':
+            case 'Teams':
                 //shareUrl = `https://web.skype.com/share?url=${encodeURIComponent(url)}`;
 
                 showApplication(app);
@@ -664,11 +664,11 @@ document.getElementById('line-share').addEventListener('click', () => {
 document.getElementById('wechat-share').addEventListener('click', () => {
     shareViaApp('wechat');
 });
-
+/** 
 document.getElementById('skype-share').addEventListener('click', () => {
     shareViaApp('skype');
 });
-
+*/
 document.getElementById('teams-share').addEventListener('click', () => {
     shareViaApp('teams');
 });
@@ -697,9 +697,11 @@ document.getElementById('share-qr-code-qoen-btn').addEventListener('click', () =
     shareViaApp('qrcode');
 });
 
+/** 
 document.getElementById('share-skype-btn').addEventListener('click', () => {
     openApplication('skype');
 });
+*/
 
 document.getElementById('ohter-share').addEventListener('click', async () => {
     // 判斷瀏覽器是否支援 Web Share API
